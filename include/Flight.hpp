@@ -1,0 +1,39 @@
+#ifndef FLIGHT_HPP
+#define FLIGHT_HPP
+
+#include <string>
+#include "../include/Aircraft.hpp"
+using namespace std;
+enum FlightStatus { SCHEDULED, DELAYED, CANCELLED, COMPLETED };
+class Flight{
+    private:
+    string flightNumber;
+    string origin;
+    string destination;
+    string departureDateTime;  // "2023-12-15 08:30"
+    string arrivalDateTime;    // "2023-12-15 12:45"
+    Aircraft* aircraft;
+    FlightStatus status;
+
+
+    public:
+    Flight(const string& flightNumber, const string& origin, const string& destination,
+           const string& departureDateTime, const string& arrivalDateTime, Aircraft* aircraft, FlightStatus status);
+    void setFlightNumber(const string& flightNumber);
+    string getFlightNumber() const;
+    void setOrigin(const string& origin);
+    string getOrigin() const;
+    void setDestination(const string& destination);
+    string getDestination() const;
+    void setDepartureDateTime(const string& departureDateTime);
+    string getDepartureDateTime() const;
+    void setArrivalDateTime(const string& arrivalDateTime);
+    string getArrivalDateTime() const;
+    void setAircraft(Aircraft* aircraft);
+    Aircraft* getAircraft() const;
+    void setStatus(FlightStatus status);
+    FlightStatus getStatus() const;
+    void displayFlightInfo() const;
+
+};
+#endif // FLIGHT_HPP
