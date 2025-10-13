@@ -3,6 +3,8 @@
 
 #include <string>
 #include "../include/Aircraft.hpp"
+#include "../include/Pilot.hpp"
+#include "../include/FlightAttendant.hpp"
 using namespace std;
 enum FlightStatus { SCHEDULED, DELAYED, CANCELLED, COMPLETED };
 class Flight{
@@ -12,8 +14,10 @@ class Flight{
     string destination;
     string departureDateTime;  // "2023-12-15 08:30"
     string arrivalDateTime;    // "2023-12-15 12:45"
-    Aircraft* aircraft;
+    Aircraft* aircraft = nullptr;
     FlightStatus status;
+    Pilot *assignedPilot = nullptr;
+    vector<FlightAttendant*> assignedFlightAttendants;
 
 
     public:
@@ -33,7 +37,19 @@ class Flight{
     Aircraft* getAircraft() const;
     void setStatus(FlightStatus status);
     FlightStatus getStatus() const;
+    
+    // Pilot management methods
+    void assignPilot(Pilot* pilot);
+    Pilot* getAssignedPilot() const;
+    
+    // Flight Attendant management methods
+    void assignFlightAttendant(FlightAttendant* attendant);
+    void removeFlightAttendant(FlightAttendant* attendant);
+    vector<FlightAttendant*> getAssignedFlightAttendants() const;
+    int getFlightAttendantCount() const;
+    
     void displayFlightInfo() const;
+    ~Flight();
 
 };
 #endif // FLIGHT_HPP

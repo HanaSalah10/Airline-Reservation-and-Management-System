@@ -1,5 +1,6 @@
 #include "../include/Flight.hpp"
 #include <iostream>
+#include <algorithm>
 using namespace std;
 Flight::Flight(const string& flightNumber, const string& origin, const string& destination,
                const string& departureDateTime, const string& arrivalDateTime,  Aircraft* aircraft, FlightStatus status)
@@ -64,4 +65,41 @@ void Flight::displayFlightInfo() const {
     }
     cout << endl;
     aircraft->displayInfo();
+}
+
+// Pilot management methods
+void Flight::assignPilot(Pilot* pilot) {
+    assignedPilot = pilot;
+}
+
+Pilot* Flight::getAssignedPilot() const {
+    return assignedPilot;
+}
+
+// Flight Attendant management methods
+void Flight::assignFlightAttendant(FlightAttendant* attendant) {
+    if (attendant != nullptr) {
+        assignedFlightAttendants.push_back(attendant);
+    }
+}
+
+void Flight::removeFlightAttendant(FlightAttendant* attendant) {
+    auto it = find(assignedFlightAttendants.begin(), assignedFlightAttendants.end(), attendant);
+    if (it != assignedFlightAttendants.end()) {
+        assignedFlightAttendants.erase(it);
+    }
+}
+
+vector<FlightAttendant*> Flight::getAssignedFlightAttendants() const {
+    return assignedFlightAttendants;
+}
+
+int Flight::getFlightAttendantCount() const {
+    return assignedFlightAttendants.size();
+}
+
+Flight::~Flight() {
+    // No dynamic memory to free since Aircraft, Pilot, and FlightAttendants are managed elsewhere
+    // Just clear the vector (pointers will be deleted by their respective managers)
+    assignedFlightAttendants.clear();
 }

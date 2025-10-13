@@ -1,0 +1,10 @@
+A001,Boeing 737,180,Active
+A002,Airbus A320,150,Active
+A003,Boeing 777,300,Active
+A004,Embraer E190,100,Active
+A005,Airbus A350,350,Active
+A006,Bombardier CRJ900,90,Active
+A007,Boeing 787,250,Active
+A008,Airbus A330,270,Active
+A009,Boeing 767,220,Active
+A010,ATR 72,70,Active

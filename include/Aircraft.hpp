@@ -3,6 +3,7 @@
 
 #include <string>
 #include <iostream>
+#include <vector>
 class Aircraft {
 private:
     std::string id;
@@ -12,7 +13,7 @@ private:
     std::vector<std::pair<std::string, std::string>> maintenanceRecords; // Pair of start and end date-times
 
 public:
-    Aircraft(const std::string& id, const std::string& type, int numberOfSeats);
+    Aircraft(const std::string& id, const std::string& type, int numberOfSeats,bool isAvailable = true);
     void setType(const std::string& type) { this->type = type; };
     std::string getType() const {return type;};
     std::string getID() const {return id;};

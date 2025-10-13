@@ -8,6 +8,9 @@
 class Administrator : public User
 {
     public:
+    Administrator() : User("", "", Role::ADMIN) {} // Default constructor
+    Administrator(const std::string& username, const std::string& password, Role role) 
+        : User(username, password, role) {} // Parameterized constructor
 
     //utlity functions
     void adminMainMenu()
@@ -26,6 +29,13 @@ class Administrator : public User
         cout << "3. Remove Flight" << endl;
         cout << "4. View All Flights" << endl;
         cout << "5. Back to Main Menu" << endl;
+    }
+    void updateFlightMenu()
+    {
+        cout << "1. Update Flight Details" << endl;
+        cout << "2. Update Flight Crew" << endl;
+        cout << "3. Update Flight Status" << endl;
+        cout << "4. Back to Flights Menu" << endl;
     }
 
     void manageUsersMenu()
@@ -51,8 +61,12 @@ class Administrator : public User
     void deleteUserAccount(UserManager& userManager);
    // Flight management
     void createFlight(FlightManager& flightManager);
-    void updateFlight(FlightManager& flightManager);
+    void updateFlightDetails(FlightManager& flightManager);
+    void updateFlightCrew(FlightManager& flightManager);
+    void updateFlightStatus(FlightManager& flightManager);
     void deleteFlight(FlightManager& flightManager);
+    void viewAllFlights(FlightManager& flightManager);
+
 
 };
 #endif // ADMINISTRATOR_HPP
