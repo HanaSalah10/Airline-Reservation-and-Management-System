@@ -8,7 +8,7 @@
  * @copyright Copyright (c) 2025
  */ 
 
-#include "../include/AircraftManager.hpp"
+#include "AircraftManager.hpp"
 
 #include <iostream>
 #include <fstream>

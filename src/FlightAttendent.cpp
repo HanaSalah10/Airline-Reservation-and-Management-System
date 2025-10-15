@@ -1,4 +1,4 @@
-#include "../include/FlightAttendant.hpp"
+#include "FlightAttendant.hpp"
 FlightAttendant::FlightAttendant(const std::string& id, const std::string& name, 
                    const std::string& contact, const std::string& certification, 
                    int experience)

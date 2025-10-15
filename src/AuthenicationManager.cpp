@@ -1,4 +1,4 @@
-#include "../include/AuthenticationManager.hpp"
+#include "AuthenticationManager.hpp"
 #include <iostream>
 #include <fstream>
 #include <sstream>

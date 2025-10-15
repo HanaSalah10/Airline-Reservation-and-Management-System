@@ -14,7 +14,8 @@ class User
 
     public:
         User(const string& username, const string& password, Role role)
-            : username(username), password(password), role(role) {}
+            : username(username), role(role), password(password) {}
+        virtual ~User() = default;  // Add virtual destructor
         virtual string getUsername() const { return username; }
         virtual string getPassword() const { return password; }
         virtual Role getRole() const { return role; }

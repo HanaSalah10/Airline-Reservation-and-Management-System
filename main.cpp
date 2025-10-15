@@ -1,13 +1,13 @@
-#include "include/AuthenticationManager.hpp"
-#include "include/UserManager.hpp"
-#include "include/Administrator.hpp"
-#include "include/Menu.hpp"
-#include "include/AircraftManager.hpp"
-#include "include/FlightManager.hpp"
-#include "include/CrewManager.hpp"
-#include "include/BookingSystem.hpp"
-#include "include/BookingAgent.hpp"
-#include "include/PassengerManager.hpp"
+#include "AuthenticationManager.hpp"
+#include "UserManager.hpp"
+#include "Administrator.hpp"
+#include "Menu.hpp"
+#include "AircraftManager.hpp"
+#include "FlightManager.hpp"
+#include "CrewManager.hpp"
+#include "BookingSystem.hpp"
+#include "BookingAgent.hpp"
+#include "PassengerManager.hpp"
 #include <memory>
 int main()
 {
@@ -132,6 +132,39 @@ int main()
                     agent.cancelReservation();
                     break;
                 case 5:
+                    authManager.logout();
+                    loggedIn = false;
+                    break;
+                default:
+                    std::cout << "Invalid choice. Please try again." << std::endl;
+                    break;
+            }
+        }
+    }
+    else if(currentUser && currentUser->getRole() == Role::PASSENGER) {
+        loggedIn = true;
+        Passenger* passenger = passengerManager.findPassengerByUsername(currentUser->getUsername());
+        if(!passenger) {
+            std::cout << "Passenger profile not found. Logging out." << std::endl;
+            authManager.logout();
+            return 0;
+        }
+        while(loggedIn) {
+            passenger->passengerMenu();
+            int choice;
+            std::cout << "Enter your choice: ";
+            std::cin >> choice;
+            switch(choice) {
+                case 1:
+                    passenger->searchFlights(bookingSystem);
+                    break;
+                case 2:
+                    passenger->viewReservations(bookingSystem);
+                    break;
+                case 3:
+                    //passenger->checkIn();
+                    break;
+                case 4:
                     authManager.logout();
                     loggedIn = false;
                     break;

@@ -1,4 +1,4 @@
-#include "../include/Aircraft.hpp"
+#include "Aircraft.hpp"
 
 Aircraft::Aircraft(const std::string& id, const std::string& type,int numRows,int seatsPerRow,bool isAvailable)
     : id(id), type(type), numRows(numRows), seatsPerRow(seatsPerRow), isAvailable(isAvailable) {}

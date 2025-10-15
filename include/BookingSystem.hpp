@@ -9,6 +9,7 @@
 #include "Reservation.hpp"
 #include "FlightManager.hpp"
 #include "PassengerManager.hpp"
+#include "Payment.hpp"
 
 class BookingSystem {
 public:
@@ -19,7 +20,9 @@ public:
     // void userRegistration();
     void searchFlights();
     void bookFlight();
-    void makePayment();
+    void bookPassengerFlight(Passenger* passenger, std::string flightNumber);
+    Payment* makePayment(double amount);
+    void getMyReservations(std::string passengerID);
     void confirmBooking();
     void cancelReservation();
     void modifyReservation();

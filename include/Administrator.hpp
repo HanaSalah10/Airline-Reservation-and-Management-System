@@ -1,10 +1,10 @@
 #ifndef ADMINISTRATOR_HPP
 #define ADMINISTRATOR_HPP
 
-#include "../include/FlightManager.hpp"
-#include "../include/AuthenticationManager.hpp"
-#include "../include/UserManager.hpp"
-#include "../include/User.hpp"
+#include "FlightManager.hpp"
+#include "AuthenticationManager.hpp"
+#include "UserManager.hpp"
+#include "User.hpp"
 class Administrator : public User
 {
     public:

@@ -1,12 +1,12 @@
-#include "../include/Flight.hpp"
+#include "Flight.hpp"
 #include <iostream>
 #include <algorithm>
 using namespace std;
 Flight::Flight(const string& flightNumber, const string& origin, const string& destination,
-               const string& departureDateTime, const string& arrivalDateTime,  Aircraft* aircraft, FlightStatus status)
+               const string& departureDateTime, const string& arrivalDateTime,  Aircraft* aircraft, FlightStatus status, double price)
     : flightNumber(flightNumber), origin(origin), destination(destination),
         departureDateTime(departureDateTime), arrivalDateTime(arrivalDateTime),
-        aircraft(aircraft), status(status) {
+        aircraft(aircraft), status(status), price(price) {
             seats = aircraft->generateSeats();
         }
 void Flight::setFlightNumber(const string& flightNumber) {
@@ -72,6 +72,7 @@ void Flight::displayFlightInfo() const {
     } else {
         cout << "No aircraft assigned." << endl;
     }
+    cout << "Price per seat: $" << price << endl;
 }
 
 // Pilot management methods

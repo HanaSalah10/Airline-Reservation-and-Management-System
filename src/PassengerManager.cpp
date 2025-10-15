@@ -75,3 +75,11 @@ Passenger* PassengerManager::findPassenger(const string& passengerID) {
     }
     return nullptr; // Not found
 }
+Passenger* PassengerManager::findPassengerByUsername(const string& username) {
+    for (auto& passenger : passengers) {
+        if (passenger.getUsername() == username) {
+            return &passenger;
+        }
+    }
+    return nullptr; // Not found
+}

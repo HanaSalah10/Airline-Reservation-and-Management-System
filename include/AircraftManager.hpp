@@ -1,7 +1,7 @@
 #ifndef AIRCRAFTMANAGER_HPP
 #define AIRCRAFTMANAGER_HPP
 
-#include "../include/Aircraft.hpp"
+#include "Aircraft.hpp"
 #include <vector>
 #include <iostream>
 class AircraftManager

@@ -1,4 +1,4 @@
-#include "../include/CrewManager.hpp"
+#include "CrewManager.hpp"
 #include <iostream>
 #include <fstream>
 #include <sstream>
@@ -55,6 +55,7 @@ void CrewManager::loadPilotdata(const std::string& filename)
     file.close();
 }
 Pilot* CrewManager::findAvailablePilot(const std::string& aircraftType) {
+    (void)aircraftType;  // Mark as unused to suppress warning
     for (auto& pilot : pilots) {
         if (pilot.getAvailability() /*&& pilot.isCertifiedFor(aircraftType)*/) {
             return &pilot;

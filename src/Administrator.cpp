@@ -1,4 +1,4 @@
-#include "../include/Administrator.hpp"
+#include "Administrator.hpp"
 #include <iostream>
 
 using namespace std;

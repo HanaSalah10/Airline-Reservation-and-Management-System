@@ -1,4 +1,4 @@
-#include "../include/FlightManager.hpp"
+#include "FlightManager.hpp"
 #include <iostream>
 #include <fstream>
 #include <sstream>
@@ -17,15 +17,18 @@ void FlightManager::loadFlightData(const std::string& filename) {
     string line;
     while (getline(file, line)) {
         stringstream ss(line);
-        string flightNumber, origin, destination, departureDateTime, arrivalDateTime, aircraftID  , statusStr;
-        int numberOfSeats;
+        string flightNumber, origin, destination, departureDateTime, arrivalDateTime, aircraftID, priceStr, statusStr;
+        // int numberOfSeats;  // Removed unused variable
+        
         getline(ss, flightNumber, ',');
         getline(ss, origin, ',');
         getline(ss, destination, ',');
         getline(ss, departureDateTime, ',');
         getline(ss, arrivalDateTime, ',');
-        getline(ss , aircraftID , ',');
+        getline(ss, aircraftID, ',');
+        getline(ss, priceStr, ',');
         getline(ss, statusStr); // Read until end of line
+        
         Aircraft* aircraft = aircraftManager.getAircraftById(aircraftID);
         
         if (!aircraft) {
@@ -35,6 +38,14 @@ void FlightManager::loadFlightData(const std::string& filename) {
         
         aircraft->setAvailability(false); // Mark aircraft as unavailable
         
+        double price = 0.0;
+        try {
+            price = stod(priceStr);
+        } catch (const exception& e) {
+            cerr << "Invalid price format for flight " << flightNumber << ": " << priceStr << endl;
+            continue;
+        }
+
         FlightStatus status;
         if (statusStr == "SCHEDULED") status = SCHEDULED;
         else if (statusStr == "DELAYED") status = DELAYED;
@@ -44,7 +55,7 @@ void FlightManager::loadFlightData(const std::string& filename) {
             cerr << "Invalid flight status in file: " << statusStr << endl;
             continue; // Skip invalid entries
         } 
-        flights.push_back(Flight(flightNumber, origin, destination, departureDateTime, arrivalDateTime, aircraft, status));
+        flights.push_back(Flight(flightNumber, origin, destination, departureDateTime, arrivalDateTime, aircraft, status, price));
         flightNumbers.insert(flightNumber);
     }
     file.close();
@@ -61,7 +72,8 @@ void FlightManager::saveFlightData(const std::string& filename) {
                 << flight.getDestination() << ","
                 << flight.getDepartureDateTime() << ","
                 << flight.getArrivalDateTime() << ","
-                << flight.getAircraft()->getID() << ",";
+                << flight.getAircraft()->getID() << ","
+                << flight.getPrice() << ",";
         switch (flight.getStatus()) {
             case SCHEDULED: file << "SCHEDULED"; break;
             case DELAYED: file << "DELAYED"; break;
@@ -110,6 +122,10 @@ void FlightManager::addFlight() {
     }
     aircraft->setAvailability(false); // Mark aircraft as unavailable
 
+    double price;
+    std::cout << "Enter flight price: ";
+    std::cin >> price;
+
     std::cout << "Enter flight status (SCHEDULED, DELAYED, CANCELLED, COMPLETED): ";
     std::cin >> statusStr;
 
@@ -122,7 +138,7 @@ void FlightManager::addFlight() {
         std::cout << "Invalid flight status. Defaulting to SCHEDULED." << std::endl;
         status = SCHEDULED;
     }
-    Flight newFlight(flightNumber, origin, destination, departureDateTime, arrivalDateTime, aircraft, status);
+    Flight newFlight(flightNumber, origin, destination, departureDateTime, arrivalDateTime, aircraft, status, price);
     flights.push_back(newFlight);
     flightNumbers.insert(flightNumber);
     
@@ -186,7 +202,7 @@ void FlightManager::assignCrewToFlight(Flight& flight) {
     std::cout << "Select pilot (enter number): ";
     std::cin >> pilotChoice;
 
-    if (pilotChoice > 0 && pilotChoice <= allPilots.size() && 
+    if (pilotChoice > 0 && pilotChoice <= static_cast<int>(allPilots.size()) && 
         allPilots[pilotChoice - 1].getAvailability()) {
         flight.assignPilot(&allPilots[pilotChoice - 1]);
         allPilots[pilotChoice - 1].setAvailability(false);
@@ -207,7 +223,7 @@ void FlightManager::assignCrewToFlight(Flight& flight) {
     }
     
     int numAttendants;
-    Aircraft* aircraft = flight.getAircraft();
+    (void)flight.getAircraft();  // Mark as used to suppress warning
     // int recommendedAttendants = (aircraft->getNumberOfSeats() <= 100) ? 2 : 
     //                            (aircraft->getNumberOfSeats() <= 200) ? 3 : 4;
     
@@ -221,7 +237,7 @@ void FlightManager::assignCrewToFlight(Flight& flight) {
         std::cout << "Select flight attendant " << (i + 1) << " (enter number): ";
         std::cin >> attendantChoice;
 
-        if (attendantChoice > 0 && attendantChoice <= allAttendants.size() && 
+        if (attendantChoice > 0 && attendantChoice <= static_cast<int>(allAttendants.size()) && 
             allAttendants[attendantChoice - 1].getAvailability()) {
             flight.assignFlightAttendant(&allAttendants[attendantChoice - 1]);
             allAttendants[attendantChoice - 1].setAvailability(false);
@@ -260,7 +276,7 @@ void FlightManager::assignPilot() {
     std::cout << "Select pilot (enter number): ";
     std::cin >> choice;
 
-    if (choice > 0 && choice <= allPilots.size() && 
+    if (choice > 0 && choice <= static_cast<int>(allPilots.size()) && 
         allPilots[choice - 1].getAvailability()) {
         flight->assignPilot(&allPilots[choice - 1]);
         allPilots[choice - 1].setAvailability(false);
@@ -299,7 +315,7 @@ void FlightManager::assignFlightAttendants() {
         std::cout << "Select flight attendant " << (i + 1) << " (enter number): ";
         std::cin >> choice;
 
-        if (choice > 0 && choice <= allAttendants.size() && 
+        if (choice > 0 && choice <= static_cast<int>(allAttendants.size()) && 
             allAttendants[choice - 1].getAvailability()) {
             flight->assignFlightAttendant(&allAttendants[choice - 1]);
             allAttendants[choice - 1].setAvailability(false);
@@ -419,7 +435,7 @@ void FlightManager::updateFlightCrew(const std::string& flightNumber) {
         std::cout << "Select new pilot (enter number): ";
         std::cin >> pilotChoice;
 
-        if (pilotChoice > 0 && pilotChoice <= allPilots.size() && 
+        if (pilotChoice > 0 && pilotChoice <= static_cast<int>(allPilots.size()) && 
             allPilots[pilotChoice - 1].getAvailability()) {
             flight->assignPilot(&allPilots[pilotChoice - 1]);
             allPilots[pilotChoice - 1].setAvailability(false);
@@ -467,7 +483,7 @@ void FlightManager::updateFlightCrew(const std::string& flightNumber) {
             std::cout << "Select flight attendant " << (i + 1) << " (enter number): ";
             std::cin >> attendantChoice;
             
-            if (attendantChoice > 0 && attendantChoice <= allAttendants.size() && 
+            if (attendantChoice > 0 && attendantChoice <= static_cast<int>(allAttendants.size()) && 
                 allAttendants[attendantChoice - 1].getAvailability()) {
                 flight->assignFlightAttendant(&allAttendants[attendantChoice - 1]);
                 allAttendants[attendantChoice - 1].setAvailability(false);

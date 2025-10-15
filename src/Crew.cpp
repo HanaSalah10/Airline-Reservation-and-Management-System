@@ -1,4 +1,4 @@
-#include "../include/Crew.hpp"
+#include "Crew.hpp"
 
 #include <iostream>
 #include <vector>

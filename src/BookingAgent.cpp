@@ -1,4 +1,4 @@
-#include "../include/BookingAgent.hpp"
+#include "BookingAgent.hpp"
 
 BookingAgent::BookingAgent(BookingSystem& bookingSystem)
     : User("", "", Role::BOOKING_AGENT), bookingSystem(bookingSystem) {}

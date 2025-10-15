@@ -2,9 +2,9 @@
 #define FLIGHTMANAGER_HPP
 #include <vector>
 #include <unordered_set>
-#include "../include/Flight.hpp"
-#include "../include/AircraftManager.hpp"
-#include "../include/CrewManager.hpp"
+#include "Flight.hpp"
+#include "AircraftManager.hpp"
+#include "CrewManager.hpp"
 using namespace std;
 class FlightManager{
     private:

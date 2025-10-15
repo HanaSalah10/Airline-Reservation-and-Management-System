@@ -1,7 +1,7 @@
 #ifndef AUTHENTICATIONMANAGER_HPP
 #define AUTHENTICATIONMANAGER_HPP
 
-#include "../include/UserManager.hpp"
+#include "UserManager.hpp"
 #include <vector>
 #include <unordered_set>
 

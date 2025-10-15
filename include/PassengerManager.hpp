@@ -25,6 +25,7 @@ class PassengerManager
     void addPassenger(const Passenger& passenger);
     void removePassenger(const string& passengerID);
     Passenger* findPassenger(const string& passengerID);
+    Passenger* findPassengerByUsername(const string& username);
 };
 
 #endif // PASSENGERMANAGER_HPP

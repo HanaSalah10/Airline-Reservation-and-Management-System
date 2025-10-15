@@ -2,10 +2,10 @@
 #define FLIGHT_HPP
 
 #include <string>
-#include "../include/Aircraft.hpp"
-#include "../include/Pilot.hpp"
-#include "../include/FlightAttendant.hpp"
-#include "../include/Seat.hpp"
+#include "Aircraft.hpp"
+#include "Pilot.hpp"
+#include "FlightAttendant.hpp"
+#include "Seat.hpp"
 using namespace std;
 enum FlightStatus { SCHEDULED, DELAYED, CANCELLED, COMPLETED };
 class Flight{
@@ -20,11 +20,12 @@ class Flight{
     Pilot *assignedPilot = nullptr;
     vector<FlightAttendant*> assignedFlightAttendants;
     vector<Seat> seats; // Seats in the flight
+    double price; // Price per seat
 
 
     public:
     Flight(const string& flightNumber, const string& origin, const string& destination,
-           const string& departureDateTime, const string& arrivalDateTime, Aircraft* aircraft, FlightStatus status);
+           const string& departureDateTime, const string& arrivalDateTime, Aircraft* aircraft, FlightStatus status, double price = 100.0);
     void setFlightNumber(const string& flightNumber);
     string getFlightNumber() const;
     void setOrigin(const string& origin);
@@ -39,6 +40,8 @@ class Flight{
     Aircraft* getAircraft() const;
     void setStatus(FlightStatus status);
     FlightStatus getStatus() const;
+    void setPrice(double price) { this->price = price; }
+    double getPrice() const { return price; }
     
     // Pilot management methods
     void assignPilot(Pilot* pilot);
