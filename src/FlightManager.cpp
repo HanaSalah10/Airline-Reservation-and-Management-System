@@ -95,7 +95,9 @@ void FlightManager::addFlight() {
     std::cout << "Available Aircrafts: " << std::endl;
     for (const auto& ac : allAircrafts) {
         if (ac.getIsAvailable()) {
-            std::cout << "ID: " << ac.getID() << ", Type: " << ac.getType() << ", Seats: " << ac.getNumberOfSeats() << std::endl;
+            std::cout << "ID: " << ac.getID() << ", Type: " << ac.getType() 
+                        << ", Rows: " << ac.getNumberOfRows() 
+                        << ", Seats/Row: " << ac.getSeatsPerRow() << std::endl;
         }
     }
     string aircraftID;
@@ -206,11 +208,11 @@ void FlightManager::assignCrewToFlight(Flight& flight) {
     
     int numAttendants;
     Aircraft* aircraft = flight.getAircraft();
-    int recommendedAttendants = (aircraft->getNumberOfSeats() <= 100) ? 2 : 
-                               (aircraft->getNumberOfSeats() <= 200) ? 3 : 4;
+    // int recommendedAttendants = (aircraft->getNumberOfSeats() <= 100) ? 2 : 
+    //                            (aircraft->getNumberOfSeats() <= 200) ? 3 : 4;
     
-    std::cout << "Recommended flight attendants for " << aircraft->getNumberOfSeats() 
-         << " seat aircraft: " << recommendedAttendants << std::endl;
+    // std::cout << "Recommended flight attendants for " << aircraft->getNumberOfSeats() 
+    //      << " seat aircraft: " << recommendedAttendants << std::endl;
     std::cout << "How many flight attendants to assign? ";
     std::cin >> numAttendants;
     

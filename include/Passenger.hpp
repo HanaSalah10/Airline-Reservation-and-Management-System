@@ -6,17 +6,26 @@
 class Passenger : public User
 {
     private:
+    string passengerID;
     string name;
-    int id;
+    long long id;
     string sex;
     int age;
     string email;
-    int telNo;
+    long long telNo;
 
     public:
-    vector<Flight> searchFlight();
-    void selectSeat();
-    void makePayment();
+    Passenger(const string& passengerID, const string& username, const string& name, long long id, const string& sex, int age, const string& email, long long telNo);
+    string getPassengerID() const { return passengerID; }
+    string getName() const { return name; }
+    long long getId() const { return id; }
+    string getSex() const { return sex; }
+    int getAge() const { return age; }
+    string getEmail() const { return email; }
+    long long getTelNo() const { return telNo; }
+    // vector<Flight> searchFlight();
+    // void selectSeat();
+    // void makePayment();
 
 };
 #endif // PASSENGER_HPP

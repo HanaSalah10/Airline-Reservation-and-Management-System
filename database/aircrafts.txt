@@ -1,10 +1,25 @@
-A001,Boeing 737,180,Active
-A002,Airbus A320,150,Active
-A003,Boeing 777,300,Active
-A004,Embraer E190,100,Active
-A005,Airbus A350,350,Active
-A006,Bombardier CRJ900,90,Active
-A007,Boeing 787,250,Active
-A008,Airbus A330,270,Active
-A009,Boeing 767,220,Active
-A010,ATR 72,70,Active
+A001,Boeing 737-800,27,6,Active
+A002,Airbus A320neo,30,6,Active
+A003,Boeing 777-300ER,60,9,Active
+A004,Embraer E190-E2,26,4,Active
+A005,Airbus A350-900,42,9,Active
+A006,Bombardier CRJ900,23,4,Active
+A007,Boeing 787-9 Dreamliner,32,9,Active
+A008,Airbus A330-300,42,8,Active
+A009,Boeing 767-300ER,35,7,Active
+A010,ATR 72-600,20,4,Active
+A011,Boeing 737 MAX 8,29,6,Active
+A012,Airbus A321XLR,44,6,Active
+A013,Boeing 777-200LR,42,9,Active
+A014,Embraer E175,22,4,Active
+A015,Airbus A220-300,32,5,Active
+A016,Boeing 747-8F,58,10,Maintenance
+A017,Airbus A380-800,73,10,Active
+A018,Boeing 787-8 Dreamliner,28,9,Active
+A019,Bombardier CRJ700,19,4,Active
+A020,Boeing 737-900ER,32,6,Maintenance
+A021,Airbus A319neo,26,6,Active
+A022,Boeing 757-200,40,6,Active
+A023,Airbus A340-300,44,8,Active
+A024,Embraer E195-E2,33,4,Active
+A025,Boeing 777F Freighter,0,0,Active

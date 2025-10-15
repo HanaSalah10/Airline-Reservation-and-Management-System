@@ -21,5 +21,7 @@ public:
     void deleteUserAccount(const std::string& username);
 
     std::vector<User>& getAllUsers() { return users; }
+    User* getUser(const std::string& username);
+    ~UserManager() {}
 };
 #endif // USERMANAGER_HPP

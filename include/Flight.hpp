@@ -5,6 +5,7 @@
 #include "../include/Aircraft.hpp"
 #include "../include/Pilot.hpp"
 #include "../include/FlightAttendant.hpp"
+#include "../include/Seat.hpp"
 using namespace std;
 enum FlightStatus { SCHEDULED, DELAYED, CANCELLED, COMPLETED };
 class Flight{
@@ -18,6 +19,7 @@ class Flight{
     FlightStatus status;
     Pilot *assignedPilot = nullptr;
     vector<FlightAttendant*> assignedFlightAttendants;
+    vector<Seat> seats; // Seats in the flight
 
 
     public:
@@ -47,7 +49,12 @@ class Flight{
     void removeFlightAttendant(FlightAttendant* attendant);
     vector<FlightAttendant*> getAssignedFlightAttendants() const;
     int getFlightAttendantCount() const;
+
+    //booking management methods
+    bool bookSeat(const string& seatNumber);
+    bool cancelSeat(const string& seatNumber);
     
+    void displayAllAvailableSeats() const;
     void displayFlightInfo() const;
     ~Flight();
 

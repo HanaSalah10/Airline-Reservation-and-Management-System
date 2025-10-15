@@ -5,6 +5,10 @@
 #include "include/AircraftManager.hpp"
 #include "include/FlightManager.hpp"
 #include "include/CrewManager.hpp"
+#include "include/BookingSystem.hpp"
+#include "include/BookingAgent.hpp"
+#include "include/PassengerManager.hpp"
+#include <memory>
 int main()
 {
     UserManager userManager;
@@ -12,6 +16,8 @@ int main()
     AircraftManager aircraftManager;
     CrewManager crewManager;
     FlightManager flightManager(aircraftManager,crewManager);
+    PassengerManager passengerManager;
+    BookingSystem bookingSystem(std::make_shared<FlightManager>(flightManager), std::make_shared<PassengerManager>(passengerManager));
     bool loggedIn = false;
 
     Role role = authManager.selectRole();
@@ -103,6 +109,40 @@ int main()
                     break;
             }
         }
+    }
+    else if(currentUser && currentUser->getRole() == Role::BOOKING_AGENT) {
+        loggedIn = true;
+        BookingAgent agent(bookingSystem); // Create BookingAgent object
+        while(loggedIn) {
+            agent.bookingAgentMenu();
+            int choice;
+            std::cout << "Enter your choice: ";
+            std::cin >> choice;
+            switch(choice) {
+                case 1:
+                    agent.searchFlights();
+                    break;
+                case 2:
+                    agent.bookFlight();
+                    break;
+                case 3:
+                    agent.modifyReservation();
+                    break;
+                case 4:
+                    agent.cancelReservation();
+                    break;
+                case 5:
+                    authManager.logout();
+                    loggedIn = false;
+                    break;
+                default:
+                    std::cout << "Invalid choice. Please try again." << std::endl;
+                    break;
+            }
+        }
+    }
+    else {
+        std::cout << "Login failed. Exiting program." << std::endl;
     }
 
     return 0;

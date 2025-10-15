@@ -27,17 +27,19 @@ void AircraftManager::loadAircraftData(const std::string& filename) {
     while (getline(file, line)) {
         stringstream ss(line);
         string id, type;
-        int numberOfSeats;
+        int numRows, seatsPerRow;
         string status;
         bool isAvailable;
 
         getline(ss, id, ',');
         getline(ss, type, ',');
-        ss >> numberOfSeats;
+        ss >> numRows;
+        ss.ignore(); // Ignore the comma
+        ss >> seatsPerRow;
         ss.ignore(); // Ignore the comma
         getline(ss, status); // Read until end of line
         isAvailable = (status == "Active" || status == "active" || status == "AVAILABLE" || status == "available");
-        aircrafts.push_back(Aircraft(id, type, numberOfSeats, isAvailable));
+        aircrafts.push_back(Aircraft(id, type, numRows, seatsPerRow, isAvailable));
     }
     file.close();
 }

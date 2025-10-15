@@ -119,3 +119,11 @@ void UserManager::deleteUserAccount(const std::string& username) {
     }
     cout << "User not found." << endl;
 }
+User* UserManager::getUser(const std::string& username) {
+    for (auto& user : users) {
+        if (user.getUsername() == username) {
+            return &user;
+        }
+    }
+    return nullptr; // User not found
+}

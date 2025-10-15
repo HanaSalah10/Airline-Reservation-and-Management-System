@@ -6,7 +6,9 @@ Flight::Flight(const string& flightNumber, const string& origin, const string& d
                const string& departureDateTime, const string& arrivalDateTime,  Aircraft* aircraft, FlightStatus status)
     : flightNumber(flightNumber), origin(origin), destination(destination),
         departureDateTime(departureDateTime), arrivalDateTime(arrivalDateTime),
-        aircraft(aircraft), status(status) {}
+        aircraft(aircraft), status(status) {
+            seats = aircraft->generateSeats();
+        }
 void Flight::setFlightNumber(const string& flightNumber) {
     this->flightNumber = flightNumber;
 }
@@ -64,7 +66,12 @@ void Flight::displayFlightInfo() const {
         case COMPLETED: cout << "Completed"; break;
     }
     cout << endl;
-    aircraft->displayInfo();
+    cout << "Aircraft Info: ";
+    if (aircraft) {
+        cout << aircraft->getType() << " Number of Seats: " << aircraft->getNumberOfRows() * aircraft->getSeatsPerRow() << endl;
+    } else {
+        cout << "No aircraft assigned." << endl;
+    }
 }
 
 // Pilot management methods
@@ -96,6 +103,35 @@ vector<FlightAttendant*> Flight::getAssignedFlightAttendants() const {
 
 int Flight::getFlightAttendantCount() const {
     return assignedFlightAttendants.size();
+}
+bool Flight::bookSeat(const string& seatNumber) {
+    for (auto& seat : seats) {
+        if (seat.getSeatNumber() == seatNumber) {
+            return seat.book();
+        }
+    }
+    return false; // Seat not found
+}
+bool Flight::cancelSeat(const string& seatNumber) {
+    for (auto& seat : seats) {
+        if (seat.getSeatNumber() == seatNumber) {
+            return seat.cancel();
+        }
+    }
+    return false; // Seat not found
+}
+void Flight::displayAllAvailableSeats() const {
+    cout << "Available Seats for Flight " << flightNumber << ":\n";
+    bool anyAvailable = false;
+    for (const auto& seat : seats) {
+        if (!seat.getIsBooked()) {
+            seat.display();
+            anyAvailable = true;
+        }
+    }
+    if (!anyAvailable) {
+        cout << "No available seats.\n";
+    }
 }
 
 Flight::~Flight() {

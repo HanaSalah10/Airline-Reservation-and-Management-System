@@ -7,8 +7,10 @@ class User
 {
     protected:
     string username;
-    string password;
     Role role;
+
+    private:
+        string password;
 
     public:
         User(const string& username, const string& password, Role role)
